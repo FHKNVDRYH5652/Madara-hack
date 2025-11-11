@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Pattern Predictor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="welcome-overlay" class="overlay">
+        <div class="popup red-glow">
+            <h2>⚠️ ACTIVATE HACK ⚠️</h2>
+            <p>Analysis Engine loading...</p>
+            <button onclick="activateSystem()">START ANALYSIS</button>
+        </div>
+    </div>
+
+    <div id="telegram-overlay" class="overlay hidden">
+        <div class="popup light-glow">
+            <img src="logo.png" alt="Channel Logo" class="telegram-logo">
+            <h3>Join Our Exclusive Community</h3>
+            <p>Get real-time updates and support.</p>
+            <a href="https://t.me/Predict456" target="_blank" class="join-button">JOIN TELEGRAM</a>
+            <button class="close-popup" onclick="closeTelegramPopup()">Continue to Dashboard</button>
+        </div>
+    </div>
+
+    <div id="main-dashboard" class="dashboard hidden">
+        <header>
+            <h1>DATA TREND ANALYZER <span class="blinking-cursor">_</span></h1>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>Enter Historical Data</h2>
+                
+                <div class="input-form">
+                    <label for="period-number">Current Period:</label>
+                    <input type="number" id="period-number" placeholder="e.g., 20251101">
+
+                    <div class="last-results-container" id="last-results-container">
+                        <label>Last 10 Results (Small Boxes):</label>
+                        <div class="result-boxes" id="result-boxes">
+                            </div>
+                    </div>
+                    
+                    <div class="actual-result-input">
+                        <label for="actual-result">Latest Result Quick Update:</label>
+                        <input type="number" id="actual-result" placeholder="Enter single result">
+                        <button onclick="updateResults()">UPDATE</button>
+                    </div>
+
+                    <button class="generate-button" onclick="generatePrediction()">GENERATE PREDICTION</button>
+                </div>
+            </section>
+
+            <section class="prediction-section">
+                <h2>Prediction Output</h2>
+                <div id="prediction-display" class="prediction-box">
+                    <p>Enter data and click 'Generate' to see the forecast.</p>
+                </div>
+
+                <div id="prediction-popup" class="overlay hidden">
+                    <div class="popup light-glow prediction-result-popup">
+                        <h3>Prediction Generated</h3>
+                        <p id="popup-period"></p>
+                        <p id="popup-prediction" class="huge-text"></p>
+                    </div>
+                </div>
+
+                <div id="key-section" class="key-input-area hidden">
+                    <h3>Prediction Limit Reached!</h3>
+                    <p>Enter Key for Unlimited Access:</p>
+                    <input type="text" id="access-key" placeholder="Enter madara456">
+                    <button onclick="unlockAccess()">ENTER KEY</button>
+                    <a href="https://t.me/Predict456" target="_blank" class="buy-key-button">BUY KEY</a>
+                </div>
+            </section>
+        </main>
+
+        <section class="calculation-section">
+            <h2><span class="text-green">></span> DATA LAST RESULT ANALYSIS</h2>
+            <pre id="analysis-output" class="console-output">
+[Loading Data Streams...]
+Analyzing 10 Historical Points...
+[Data Filter: OK]
+[Pattern Matching: Initializing 100 Simulated Logic Streams...]
+...
+            </pre>
+            <div id="human-ai-status">
+                </div>
+        </section>
+
+    </div> <script src="script.js"></script>
+</body>
+</html>
