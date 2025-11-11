@@ -3,681 +3,1252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ AI HACKING SYSTEM - CYBERPUNK EDITION ⚡</title>
-    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Golden Predictor Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- 1. GLOBAL & FONT STYLES --- */
-        :root {
-            /* Full Lighting Neon Colors */
-            --color-neon-pink: #ff00ff;
-            --color-neon-blue: #00ffff;
-            --color-neon-green: #00ff00;
-            --color-neon-yellow: #ffff00;
-            --color-dark-bg: #03001C; /* Deep space background */
-            --color-dark-surface: #0a0537; /* Darker surface with blue hint */
-            --color-red-glow: #ff4500;
-        }
-
-        body {
-            background-color: var(--color-dark-bg);
-            color: var(--color-neon-blue);
-            font-family: 'Share Tech Mono', monospace;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
             min-height: 100vh;
-            line-height: 1.6;
-            text-shadow: 0 0 5px var(--color-neon-blue); /* Global glow effect */
+            overflow-x: hidden;
         }
-
-        /* --- 2. HACK ACTIVATION SCREEN (Initial View) - FIX & REDESIGN --- */
-        #hack-screen {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            background-image: radial-gradient(circle, #0a0537 0%, #03001C 100%);
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-        .hack-container {
-            padding: 50px 70px;
-            background-color: var(--color-dark-surface);
-            border-radius: 20px;
-            border: 5px solid var(--color-neon-pink);
-            box-shadow: 0 0 50px rgba(255, 0, 255, 0.5); /* Pink Glow */
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.5s ease-in-out;
-            animation: pulse-pink 2s infinite alternate;
-        }
-
-        @keyframes pulse-pink {
-            from { box-shadow: 0 0 30px var(--color-neon-pink); }
-            to { box-shadow: 0 0 60px var(--color-neon-pink), 0 0 10px var(--color-neon-pink); }
-        }
-
-        .hack-text {
-            color: var(--color-neon-yellow);
-            font-size: 2.5em;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px var(--color-neon-yellow);
-            margin-bottom: 30px;
-            font-family: 'Major Mono Display', monospace;
-        }
-
-        .activate-button {
-            /* FIX: बटन को रंगीन और चमकदार बनाया गया है */
-            padding: 20px 50px;
-            background: linear-gradient(45deg, var(--color-red-glow), #ff004c);
-            color: #ffffff;
-            font-size: 1.5em;
-            font-weight: 700;
-            border: 4px solid var(--color-neon-yellow);
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow: 0 0 20px var(--color-red-glow);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        .activate-button:hover {
-            background: linear-gradient(45deg, #ff004c, var(--color-red-glow));
-            box-shadow: 0 0 40px var(--color-red-glow);
-            transform: scale(1.05);
-        }
-
-        /* --- 3. VIDEO STYLES --- */
-        #video-player {
+        
+        /* Popup Styles */
+        .popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: none;
-            z-index: 9999; /* सबसे ऊपर रखने के लिए */
-            background-color: black;
-        }
-
-        /* --- 4. MAIN PREDICTION INTERFACE (Cyberpunk Layout) --- */
-        #main-interface {
-            display: none;
-            padding: 40px 20px;
-            transition: all 0.5s;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: var(--color-dark-surface);
-            border-radius: 15px;
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.2); /* Cyan Glow */
-            border-top: 5px solid var(--color-neon-blue);
-        }
-
-        h2 {
-            color: var(--color-neon-pink);
-            text-align: center;
-            font-size: 2.8em;
-            font-weight: 700;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-            text-shadow: 0 0 15px var(--color-neon-pink);
-            border-bottom: 2px solid var(--color-neon-pink);
-            font-family: 'Major Mono Display', monospace;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
         
-        /* --- Input Card & Boxes --- */
+        .popup {
+            background: linear-gradient(135deg, #ff0066, #ff3300);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(255, 0, 102, 0.6);
+            max-width: 600px;
+            width: 90%;
+            animation: pulse 2s infinite;
+            border: 3px solid #ffcc00;
+        }
+        
+        .popup h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            color: #fff;
+            background: linear-gradient(90deg, #ffcc00, #ff0066);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .popup p {
+            margin-bottom: 25px;
+            font-size: 20px;
+            color: #ffeb3b;
+        }
+        
+        .popup-btn {
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-size: 22px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.6);
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .popup-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 25px rgba(255, 204, 0, 0.8);
+        }
+        
+        /* Video Player Styles */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1001;
+            display: none;
+        }
+        
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        /* Telegram Popup Styles */
+        .telegram-popup {
+            background: linear-gradient(135deg, #0088cc, #00b3ff);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 136, 204, 0.6);
+            max-width: 600px;
+            width: 90%;
+            border: 3px solid #00ffcc;
+        }
+        
+        .telegram-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            color: #0088cc;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Main Page Styles */
+        .main-page {
+            display: none;
+            background: url('background.png') no-repeat center center;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header h1 {
+            font-size: 52px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71, #00ffcc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255, 138, 0, 0.5);
+        }
+        
+        .header p {
+            font-size: 22px;
+            opacity: 0.9;
+            color: #ffcc00;
+        }
+        
+        .prediction-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .prediction-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section, .result-section {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #ffcc00;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        
         .input-group {
-            margin-bottom: 30px;
-            padding: 25px;
-            background-color: #1a0f5e; /* Darker Blue/Purple for section */
-            border-radius: 12px;
-            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3); /* Green Glow */
-            border: 1px solid var(--color-neon-green);
+            margin-bottom: 25px;
         }
-
-        label {
+        
+        .input-group label {
             display: block;
-            color: var(--color-neon-green);
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 1em;
-            text-shadow: 0 0 5px var(--color-neon-green);
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #00ffcc;
         }
-
-        #period-number {
-             width: 180px;
-             height: 45px;
-             margin-bottom: 20px;
-             padding: 10px;
-             background: var(--color-dark-bg);
-             border: 2px solid var(--color-neon-yellow);
-             color: var(--color-neon-yellow);
-             font-size: 1.2em;
-             border-radius: 8px;
-             text-align: center;
-             box-shadow: 0 0 10px var(--color-neon-yellow);
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
         }
-
-        .input-boxes {
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #ffcc00;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+        }
+        
+        .result-boxes {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-top: 15px;
-            justify-content: center;
-        }
-
-        .result-box, #actual-result {
-            width: 55px;
-            height: 55px;
-            background: var(--color-dark-bg);
-            border: 2px solid var(--color-neon-blue);
-            color: var(--color-neon-blue);
-            font-size: 1.5em;
-            font-weight: 700;
-            text-align: center;
-            padding: 5px;
-            border-radius: 10px;
-            box-shadow: 0 0 8px var(--color-neon-blue);
-            transition: all 0.3s;
+            margin-bottom: 15px;
         }
         
-        #actual-result {
-             width: 80px;
-             height: 40px;
-             padding: 8px;
-             font-size: 1.3em;
-             color: var(--color-neon-pink);
-             border-color: var(--color-neon-pink);
-             box-shadow: 0 0 10px var(--color-neon-pink);
-        }
-
-        .result-box:focus, #period-number:focus, #actual-result:focus {
-            border-color: var(--color-neon-green);
-            box-shadow: 0 0 20px var(--color-neon-green);
-            outline: none;
-            background: #201760;
-        }
-
-        /* --- Buttons --- */
-        .neon-button {
-            width: 100%;
-            padding: 20px;
-            margin-top: 30px;
-            font-size: 1.4em;
-            font-weight: 700;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(255, 255, 0, 0.5); /* Default Yellow Shadow */
-            font-family: 'Major Mono Display', monospace;
-        }
-
-        #generate-btn {
-            background: linear-gradient(90deg, #ff00ff, #ff4500); /* Pink to Orange Gradient */
-            color: #fff;
-            box-shadow: 0 0 30px var(--color-neon-pink);
-            border: 2px solid var(--color-neon-yellow);
-        }
-
-        #generate-btn:hover {
-            background: linear-gradient(90deg, #ff4500, #ff00ff);
-            transform: scale(1.02);
-            box-shadow: 0 0 50px var(--color-neon-pink);
-        }
-        
-        .feedback-buttons {
+        .result-box {
+            width: 70px;
+            height: 80px;
             display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .feedback-btn {
-            padding: 15px 25px;
-            font-weight: 600;
-            border-radius: 10px;
-            width: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff0066, #ff3300);
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 0, 102, 0.3);
+            position: relative;
             cursor: pointer;
-            border: 2px solid;
             transition: all 0.3s;
-            font-size: 1.1em;
         }
-
-        #win-btn {
-            background-color: var(--color-neon-green);
-            color: var(--color-dark-bg);
-            border-color: #ffffff;
-            box-shadow: 0 0 15px var(--color-neon-green);
+        
+        .result-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 0, 102, 0.5);
         }
-        #win-btn:hover {
-            box-shadow: 0 0 25px var(--color-neon-green);
+        
+        .result-box.small {
+            background: linear-gradient(135deg, #0066ff, #3300ff);
         }
-
-        #loss-btn {
-            background-color: var(--color-red-glow);
-            color: var(--color-dark-bg);
-            border-color: #ffffff;
-            box-shadow: 0 0 15px var(--color-red-glow);
+        
+        .box-number {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-bottom: 5px;
         }
-        #loss-btn:hover {
-            box-shadow: 0 0 25px var(--color-red-glow);
+        
+        .delete-result {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff3333;
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-
-        /* --- Key System --- */
-        #key-system {
-            margin-top: 40px;
-            padding: 25px;
-            background-color: #130a59;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            border: 1px solid var(--color-neon-blue);
+        
+        .result-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
         }
-
-        #key-input {
-            width: 65%;
-            padding: 15px;
-            margin-right: 15px;
-            background: var(--color-dark-bg);
-            border: 2px solid var(--color-neon-blue);
-            color: var(--color-neon-yellow);
+        
+        .result-control-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
             border-radius: 8px;
-            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .result-control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
-        #unlock-btn {
-            background-color: var(--color-neon-blue);
-            color: var(--color-dark-bg);
-            width: 30%;
-            padding: 15px;
-            margin-top: 0;
-            font-size: 1.1em;
-            font-weight: 700;
-            box-shadow: 0 0 15px var(--color-neon-blue);
-            border: 2px solid #ffffff;
+        
+        .generate-btn {
+            background: linear-gradient(135deg, #00c853, #64dd17);
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 200, 83, 0.4);
         }
-
-        #buy-key-btn {
-            background-color: var(--color-neon-yellow);
-            color: var(--color-dark-bg);
-            width: 100%;
+        
+        .win-btn {
+            background: linear-gradient(135deg, #00c853, #64dd17);
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 200, 83, 0.4);
+        }
+        
+        .loss-btn {
+            background: linear-gradient(135deg, #ff1744, #f50057);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 23, 68, 0.4);
+        }
+        
+        .buy-key-btn {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .prediction-result {
+            text-align: center;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            margin-top: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .prediction-text {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        
+        .prediction-details {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #00ffcc;
+        }
+        
+        .prediction-period {
+            font-size: 18px;
+            opacity: 0.9;
+            color: #ff6699;
+        }
+        
+        .analysis-section {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+        }
+        
+        .analysis-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #ffcc00;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        
+        .analysis-content {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            font-size: 16px;
+            line-height: 1.6;
+            max-height: 250px;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+        
+        .key-section {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .key-input {
+            flex: 1;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .prediction-counter {
+            text-align: center;
             margin-top: 20px;
             padding: 15px;
-            font-size: 1.2em;
-            font-weight: 700;
-            box-shadow: 0 0 15px var(--color-neon-yellow);
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* --- Hacker Calculation Area (Log Console) --- */
-        #calculation-area {
-            margin-top: 40px;
+        .prediction-counter p {
+            font-size: 18px;
+            color: #ffcc00;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(255, 0, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 102, 0);
+            }
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 15px currentColor;
+        }
+        
+        /* Enhanced Prediction Popup Style */
+        .prediction-popup {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            border-radius: 20px;
+            padding: 0;
+            overflow: hidden;
+            width: 380px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            border: 3px solid #ffcc00;
+            position: relative;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(255, 204, 0, 0.8), 0 0 40px rgba(255, 204, 0, 0.6);
+            }
+        }
+        
+        .prediction-header {
+            background: linear-gradient(90deg, #ff8a00, #e52e71, #ff0066);
             padding: 20px;
-            background-color: #000000; 
-            border: 3px solid var(--color-neon-green);
-            border-radius: 10px;
-            min-height: 250px;
-            overflow: auto;
-            color: var(--color-neon-green); 
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9em;
-            white-space: pre-wrap;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
-        }
-        
-        /* --- Pop-up Styles --- */
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 40px 50px;
-            background-color: #1a0f5e;
-            border: 5px solid var(--color-neon-yellow);
-            border-radius: 15px;
-            box-shadow: 0 0 40px var(--color-neon-yellow);
-            z-index: 10000;
             text-align: center;
-            display: none;
-            animation: pulse-yellow 1.5s infinite alternate;
+            border-bottom: 3px solid #ffcc00;
+            position: relative;
+            overflow: hidden;
         }
         
-        @keyframes pulse-yellow {
-            from { box-shadow: 0 0 20px var(--color-neon-yellow); }
-            to { box-shadow: 0 0 50px var(--color-neon-yellow); }
-        }
-
-        #prediction-popup {
-            min-width: 400px;
-        }
-        
-        #prediction-result {
-            font-size: 2.5em;
-            color: var(--color-neon-pink);
-            margin: 25px 0;
-            font-weight: 700;
-            text-shadow: 0 0 15px var(--color-neon-pink);
-            font-family: 'Major Mono Display', monospace;
+        .prediction-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
         }
         
-        #telegram-popup img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            border: 5px solid var(--color-neon-blue);
-            box-shadow: 0 0 15px var(--color-neon-blue);
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
         
-        #telegram-popup h3 {
-            color: var(--color-neon-yellow);
-            font-size: 1.8em;
-            text-shadow: 0 0 5px var(--color-neon-yellow);
-        }
-
-        #prediction-counter {
-            text-align: center; 
-            font-size: 1.5em; 
-            font-weight: 700; 
-            margin-bottom: 25px;
-            text-shadow: 0 0 8px var(--color-neon-green);
-        }
-
-        .telegram-join-btn {
-            background-color: #0088cc;
+        .prediction-header h3 {
+            font-size: 24px;
             color: white;
-            padding: 15px 30px;
-            border: 3px solid #ffffff;
-            border-radius: 10px;
-            font-size: 1.2em;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .prediction-body {
+            padding: 30px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .prediction-type {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+            background: linear-gradient(90deg, #ffcc00, #ff9900);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .prediction-value {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+            background: linear-gradient(90deg, #00ffcc, #00cc99);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse-text 2s infinite;
+        }
+        
+        @keyframes pulse-text {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .prediction-numbers {
+            font-size: 18px;
+            color: #ff6699;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 102, 153, 0.5);
+        }
+        
+        .prediction-period-info {
+            font-size: 16px;
+            color: #cccccc;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .prediction-footer {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .join-telegram-btn {
+            background: linear-gradient(135deg, #0088cc, #00b3ff);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 0 10px #0088cc;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
         }
-        .telegram-join-btn:hover {
-            box-shadow: 0 0 20px #0088cc;
-            transform: translateY(-2px);
+        
+        .join-telegram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.6);
+        }
+        
+        .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-
-    <div id="hack-screen">
-        <div class="hack-container">
-            <div class="hack-text">
-                ⚠️ SYSTEM V2.0 ACTIVATION ⚠️
-            </div>
-            <button class="activate-button" onclick="activateSystem()">
-                ACTIVATE HACK
+    <!-- Activation Popup -->
+    <div id="activationPopup" class="popup-overlay">
+        <div class="popup">
+            <h2 class="glow-text">ACTIVATE HACK</h2>
+            <p>Click below to activate the advanced prediction system</p>
+            <button class="popup-btn" id="activateBtn">
+                <i class="fas fa-bolt"></i> ACTIVATE NOW
             </button>
         </div>
     </div>
 
-    <video id="video-player" src="video.mp4" controls style="display:none"></video>
-
-    <div id="telegram-popup" class="popup">
-        <img src="logo.png" alt="Channel Logo">
-        <h3>🚨 CYBERNETIC ACCESS GRANTED 🚨</h3>
-        <p style="color: var(--color-neon-green); font-size: 1.1em;">Join the Network Channel for VIP Signals and Data Feeds!</p>
-        <button class="telegram-join-btn" 
-                onclick="window.open('https://t.me/Predict456', '_blank'); hideTelegramPopup(); playSound('click')">
-            JOIN NETWORK NOW
-        </button>
+    <!-- Video Section -->
+    <div id="videoSection" class="video-container">
+        <video id="hackVideo" controls autoplay>
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-controls">
+            <button class="control-btn" id="skipBtn">
+                <i class="fas fa-forward"></i> Skip Video
+            </button>
+            <button class="control-btn" id="muteBtn">
+                <i class="fas fa-volume-up"></i> Unmute
+            </button>
+        </div>
     </div>
 
-    <div id="main-interface">
-        <div class="container">
-            <h2>✨ AI PREDICTION CORE 🌐</h2>
-            
-            <p id="prediction-counter" style="color: var(--color-neon-green);">FREE PREDICTIONS LEFT: 10</p>
-            
-            <div class="input-group">
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
-                    <div>
-                        <label for="period-number">➡️ CURRENT PERIOD ID:</label>
-                        <input type="number" id="period-number" placeholder="Enter ID" onfocus="playSound('click')">
-                    </div>
-                    <div>
-                        <label for="actual-result" style="color: var(--color-neon-pink); text-align: right;">🔥 LATEST RESULT:</label>
-                        <input type="number" id="actual-result" placeholder="e.g. 5" min="0" max="9" onchange="updateLastResults(this.value)" onfocus="playSound('click')" style="text-align: center;">
-                    </div>
-                </div>
-                
-                <label style="color: var(--color-neon-yellow); margin-top: 15px;">💾 LAST 10 DATA POINTS:</label>
-                <div class="input-boxes" id="last-10-results">
-                    </div>
+    <!-- Telegram Popup -->
+    <div id="telegramPopup" class="popup-overlay" style="display: none;">
+        <div class="telegram-popup">
+            <div class="telegram-logo">
+                <i class="fab fa-telegram-plane"></i>
             </div>
-            
-            <button id="generate-btn" onclick="generatePrediction()" onfocus="playSound('click')">
-                DECRYPT & GENERATE PREDICTION
+            <h2>Join Our Telegram Channel</h2>
+            <p>Get exclusive predictions and updates</p>
+            <button class="popup-btn" id="joinTelegramBtn">
+                <i class="fab fa-telegram-plane"></i> JOIN NOW
             </button>
+        </div>
+    </div>
 
-            <div class="feedback-buttons">
-                <button id="win-btn" class="feedback-btn" onclick="logFeedback('Win')" onfocus="playSound('click')">✅ AI DATA MATCH</button>
-                <button id="loss-btn" class="feedback-btn" onclick="logFeedback('Loss')" onfocus="playSound('click')">❌ AI DATA MISMATCH</button>
+    <!-- Main Page -->
+    <div id="mainPage" class="main-page">
+        <div class="container">
+            <div class="header">
+                <h1>GOLDEN PREDICTOR PRO</h1>
+                <p>Advanced AI Psychology Prediction System</p>
             </div>
 
-            <div id="key-system" style="display: none;">
-                <p style="color: var(--color-neon-red); font-size: 1.2em; font-weight: 700; text-shadow: 0 0 10px var(--color-red-glow);">🔑 SYSTEM LOCKOUT! ENTER KEY FOR UNLIMITED ACCESS.</p>
-                <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <input type="text" id="key-input" placeholder="Enter CYBER KEY" onfocus="playSound('click')">
-                    <button id="unlock-btn" class="neon-button" 
-                            onclick="validateKey('madara456')" onfocus="playSound('click')" style="box-shadow: none;">
-                        UNLOCK
+            <div class="prediction-section">
+                <div class="input-section">
+                    <h2 class="section-title">ENTER DETAILS</h2>
+                    <div class="input-group">
+                        <label for="periodNumber"><i class="fas fa-hashtag"></i> Period Number</label>
+                        <input type="text" id="periodNumber" placeholder="Enter period number">
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fas fa-list-ol"></i> Last 10 Results</label>
+                        <div class="result-boxes" id="resultBoxes">
+                            <!-- Result boxes will be generated dynamically -->
+                        </div>
+                        <div class="result-controls">
+                            <button class="result-control-btn" id="clearAllBtn">Clear All</button>
+                            <button class="result-control-btn" id="addRandomBtn">Add Random</button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="actualResult"><i class="fas fa-sync-alt"></i> Update Latest Result</label>
+                        <input type="text" id="actualResult" placeholder="Enter actual result to update">
+                    </div>
+                    <button class="btn generate-btn" id="generateBtn">
+                        <i class="fas fa-cogs"></i> GENERATE PREDICTION
                     </button>
+                    
+                    <div class="key-section">
+                        <input type="password" class="key-input" id="keyInput" placeholder="Enter activation key">
+                        <button class="btn buy-key-btn" id="buyKeyBtn">
+                            <i class="fas fa-key"></i> BUY KEY
+                        </button>
+                    </div>
                 </div>
-                <button id="buy-key-btn" class="neon-button" onclick="window.open('https://t.me/Predict456', '_blank')" onfocus="playSound('click')" style="box-shadow: 0 0 20px var(--color-neon-yellow);">
-                    GET ACTIVATION KEY NOW
+
+                <div class="result-section">
+                    <h2 class="section-title">PREDICTION RESULT</h2>
+                    <div class="prediction-result">
+                        <div class="prediction-text">Waiting for input...</div>
+                        <div class="prediction-details">Prediction details will appear here</div>
+                        <div class="prediction-period">Period: --</div>
+                    </div>
+                    
+                    <div class="buttons">
+                        <button class="btn win-btn" id="winBtn">
+                            <i class="fas fa-trophy"></i> WIN
+                        </button>
+                        <button class="btn loss-btn" id="lossBtn">
+                            <i class="fas fa-times"></i> LOSS
+                        </button>
+                    </div>
+                    
+                    <div class="prediction-counter">
+                        <p>Predictions Left: <span id="predictionCount">10</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                <h2 class="analysis-title">DATA ANALYSIS</h2>
+                <div class="analysis-content" id="analysisContent">
+                    System initialized. Waiting for input data...
+                    <br>Last Result Analysis: --
+                    <br>Pattern Detection: --
+                    <br>Trend Analysis: --
+                    <br>Confidence Level: --
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Prediction Popup -->
+    <div id="predictionPopup" class="popup-overlay" style="display: none;">
+        <div class="prediction-popup">
+            <button class="close-popup" id="closePopupBtn">×</button>
+            <div class="prediction-header">
+                <h3>MADARA UCHIHA HACK</h3>
+            </div>
+            <div class="prediction-body">
+                <div class="prediction-type" id="popupType">SMALL</div>
+                <div class="prediction-value" id="popupPrediction">2,3,4</div>
+                <div class="prediction-numbers" id="popupNumbers">Numbers: 2,3,4</div>
+                <div class="prediction-period-info" id="popupPeriod">Period: 278724843</div>
+            </div>
+            <div class="prediction-footer">
+                <button class="join-telegram-btn" id="joinTelegramPopupBtn">
+                    <i class="fab fa-telegram-plane"></i> JOIN TELEGRAM
                 </button>
             </div>
-            
-            <div id="calculation-area">
-                **SYSTEM LOG [V2.0]:** INITIATING...
-                <br>|-- SECURED CONNECTION ESTABLISHED.
-                <br>|-- DATA STREAM READY. WAITING FOR PERIOD ID...
-            </div>
         </div>
     </div>
-    
-    <div id="prediction-popup" class="popup">
-        <p style="color: var(--color-neon-blue); font-weight: 600; text-shadow: none;">✨ DECRYPTION IN PROGRESS (5 SECONDS) ✨</p>
-        <p id="popup-period" style="color: #ffffff; font-weight: bold; font-size: 1.2em;"></p>
-        <p id="prediction-result">CALCULATING...</p>
-    </div>
 
-
-<script>
-    // --- JS VARIABLES ---
-    const FREE_PREDICTIONS_LIMIT = 10;
-    let predictionsLeft = 10;
-    let isKeyActive = false;
-    const key = "madara456"; // Your activation key
-
-    // --- 1. INITIAL SETUP: Generate 10 input boxes ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const last10ResultsDiv = document.getElementById('last-10-results');
-        for (let i = 0; i < 10; i++) {
-            const input = document.createElement('input');
-            input.type = 'number';
-            input.className = 'result-box';
-            input.id = `res-${i}`;
-            input.placeholder = (10 - i);
-            input.min = "0";
-            input.max = "9";
-            input.addEventListener('focus', () => playSound('click'));
-            last10ResultsDiv.appendChild(input);
-        }
-        updatePredictionCounter();
-    });
-
-    // --- 2. CORE FUNCTIONS ---
-
-    // Function to play sound (Placeholder - actual audio files needed)
-    function playSound(type) {
-        // Example: if (type === 'click') new Audio('click.mp3').play();
-        console.log(`Sound effect triggered: ${type}`);
-    }
-
-    // Function to handle Activate Hack button click
-    function activateSystem() {
-        playSound('activate');
-        document.getElementById('hack-screen').style.display = 'none';
-        const videoPlayer = document.getElementById('video-player');
+    <script>
+        // DOM Elements
+        const activationPopup = document.getElementById('activationPopup');
+        const videoSection = document.getElementById('videoSection');
+        const telegramPopup = document.getElementById('telegramPopup');
+        const mainPage = document.getElementById('mainPage');
+        const activationBtn = document.getElementById('activateBtn');
+        const skipBtn = document.getElementById('skipBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const joinTelegramBtn = document.getElementById('joinTelegramBtn');
+        const generateBtn = document.getElementById('generateBtn');
+        const winBtn = document.getElementById('winBtn');
+        const lossBtn = document.getElementById('lossBtn');
+        const buyKeyBtn = document.getElementById('buyKeyBtn');
+        const keyInput = document.getElementById('keyInput');
+        const predictionPopup = document.getElementById('predictionPopup');
+        const popupPrediction = document.getElementById('popupPrediction');
+        const popupType = document.getElementById('popupType');
+        const popupNumbers = document.getElementById('popupNumbers');
+        const popupPeriod = document.getElementById('popupPeriod');
+        const analysisContent = document.getElementById('analysisContent');
+        const predictionCount = document.getElementById('predictionCount');
+        const resultBoxesContainer = document.getElementById('resultBoxes');
+        const actualResultInput = document.getElementById('actualResult');
+        const periodNumberInput = document.getElementById('periodNumber');
+        const hackVideo = document.getElementById('hackVideo');
+        const clearAllBtn = document.getElementById('clearAllBtn');
+        const addRandomBtn = document.getElementById('addRandomBtn');
+        const closePopupBtn = document.getElementById('closePopupBtn');
+        const joinTelegramPopupBtn = document.getElementById('joinTelegramPopupBtn');
         
-        // FIX: सुनिश्चित करें कि वीडियो अनम्यूट हो और प्ले हो
-        videoPlayer.muted = false; 
-        videoPlayer.style.display = 'block';
-        videoPlayer.play()
-            .then(() => {
-                logCalculation('[VIDEO] Playback started successfully (Unmuted).');
-            })
-            .catch(error => {
-                console.error('Video Playback Error:', error);
-                // Fallback: अगर Play fail होता है (जैसे autoplay policy के कारण) तो तुरंत मेन इंटरफ़ेस दिखा दें
-                videoPlayer.style.display = 'none';
-                document.getElementById('main-interface').style.display = 'block';
-                document.getElementById('telegram-popup').style.display = 'block';
-                playSound('alert');
-            });
+        // State variables
+        let predictionsUsed = localStorage.getItem('predictionsUsed') ? parseInt(localStorage.getItem('predictionsUsed')) : 0;
+        let isKeyActivated = localStorage.getItem('isKeyActivated') === 'true';
+        let lastResults = localStorage.getItem('lastResults') ? JSON.parse(localStorage.getItem('lastResults')) : [];
         
-        videoPlayer.onended = () => {
-            videoPlayer.style.display = 'none';
-            document.getElementById('main-interface').style.display = 'block';
-            document.getElementById('telegram-popup').style.display = 'block';
-            playSound('alert');
-            logCalculation('[VIDEO] Playback finished. Interface loaded.');
-        };
-    }
-
-    // Function to hide Telegram popup
-    function hideTelegramPopup() {
-        document.getElementById('telegram-popup').style.display = 'none';
-    }
-
-    // Function to shift and update Last 10 Results
-    function updateLastResults(newResult) {
-        // ... (कोड वही है)
-        if (!newResult || isNaN(newResult)) return;
-
-        const results = [];
-        for (let i = 0; i < 9; i++) {
-            const val = document.getElementById(`res-${i}`).value;
-            results.push(val);
-        }
-
-        document.getElementById(`res-0`).value = newResult; 
-        for (let i = 0; i < 9; i++) {
-            document.getElementById(`res-${i + 1}`).value = results[i];
-        }
-
-        document.getElementById('actual-result').value = ''; 
-        playSound('data_entry');
-        logCalculation(`[DATA INJECT] RESULT ${newResult} logged. History shift OK.`);
-    }
-
-    // Function to update prediction counter display
-    function updatePredictionCounter() {
-        const counterElement = document.getElementById('prediction-counter');
-        const keySystem = document.getElementById('key-system');
-        
-        if (isKeyActive) {
-            counterElement.innerHTML = `🌟 **SYSTEM ONLINE: UNLIMITED ACCESS** 🌟`;
-            counterElement.style.color = var(--color-neon-green);
-            keySystem.style.display = 'none';
-        } else {
-            counterElement.innerHTML = `FREE PREDICTIONS LEFT: **${predictionsLeft}**`;
-            // CSS Variables cannot be used directly in JS, so using hardcoded hex for fallback
-            counterElement.style.color = predictionsLeft > 5 ? '#00ffff' : '#ff4500'; // Cyan or Red/Orange
-            keySystem.style.display = predictionsLeft <= 0 ? 'block' : 'none';
-        }
-    }
-
-    // Function to generate Prediction
-    function generatePrediction() {
-        playSound('generate');
-        const period = document.getElementById('period-number').value;
-        
-        if (!period) {
-            alert("⚠️ ERROR: Please enter the Period ID.");
-            return;
-        }
-
-        if (!isKeyActive && predictionsLeft <= 0) {
-            alert("🔑 ACCESS DENIED: Free limit reached. Enter your CYBER KEY.");
-            document.getElementById('key-system').style.display = 'block';
-            return;
-        }
-
-        // --- AI LOGIC (SIMULATION) ---
-        const lastDigit = Math.floor(Math.random() * 10); 
-        const isBig = lastDigit >= 5;
-        const predictionText = isBig ? 'BIG' : 'SMALL';
-        
-        // 1. Display Pop-up
-        const popup = document.getElementById('prediction-popup');
-        document.getElementById('popup-period').textContent = `TARGET ID: ${period}`;
-        
-        document.getElementById('prediction-result').innerHTML = `
-            PREDICT: <span style="color: ${isBig ? '#ffff00' : '#00ffff'};">${predictionText}</span> 
-            <br>
-            NUMBER: <span style="color: #ff00ff;">${lastDigit}</span>
-        `;
-        popup.style.display = 'block';
-        
-        // 2. Log Calculation
-        logCalculation(`[AI LOGIC] ALGORITHM RUN: ID ${period}. Prediction: ${predictionText}/${lastDigit}.`);
-        
-        // 3. Close Pop-up and update counter after 5 seconds
-        setTimeout(() => {
-            popup.style.display = 'none';
-            if (!isKeyActive) {
-                predictionsLeft--;
+        // Initialize the page
+        function initializePage() {
+            updateResultBoxes();
+            predictionCount.textContent = isKeyActivated ? 'Unlimited' : (10 - predictionsUsed);
+            
+            if (isKeyActivated) {
+                keyInput.value = '********';
             }
-            updatePredictionCounter();
-            logCalculation(`[PREDICTION] ID ${period} completed. Timer reset.`);
-        }, 5000);
-    }
-    
-    // Function to validate key
-    function validateKey(correctKey) {
-        const enteredKey = document.getElementById('key-input').value.trim();
-        if (enteredKey === correctKey) {
-            isKeyActive = true;
-            alert("✅ ACCESS GRANTED! Unlimited System Access Unlocked!");
-            updatePredictionCounter();
-            playSound('success');
-            document.getElementById('key-input').value = '';
-        } else {
-            alert("❌ ACCESS DENIED. Invalid CYBER KEY.");
-            playSound('error');
         }
-    }
-    
-    // Function to log feedback (Simulated AI Action)
-    function logFeedback(result) {
-        playSound('feedback');
-        logCalculation(`[FEEDBACK] Last Cycle Result: ${result}. Data Feed status: OK.`);
         
-        if (result === 'Win') {
-            logCalculation(`[AI ACTION] PROFILE SYNC: 98% Confidence. Trend stability confirmed. Status: OPTIMAL.`);
-        } else { // Loss
-            logCalculation(`[AI ACTION] ERROR MARGIN: +5%. Initiating REVERSE LOGIC protocol. AWAITING NEW ID.`);
+        // Initialize result boxes with numbers 1-10
+        function updateResultBoxes() {
+            resultBoxesContainer.innerHTML = '';
+            
+            for (let i = 0; i < 10; i++) {
+                const resultBox = document.createElement('div');
+                resultBox.className = 'result-box';
+                
+                // Add box number (1-10, where 1 is oldest, 10 is latest)
+                const boxNumber = document.createElement('div');
+                boxNumber.className = 'box-number';
+                boxNumber.textContent = `#${i+1}`;
+                resultBox.appendChild(boxNumber);
+                
+                // Add result value
+                const resultValue = document.createElement('div');
+                resultValue.className = 'result-value';
+                
+                if (i < lastResults.length) {
+                    resultValue.textContent = lastResults[i];
+                    if (lastResults[i] <= 5) {
+                        resultBox.classList.add('small');
+                    }
+                    
+                    // Add delete button
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-result';
+                    deleteBtn.innerHTML = '×';
+                    deleteBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        deleteResult(i);
+                    });
+                    resultBox.appendChild(deleteBtn);
+                } else {
+                    resultValue.textContent = '-';
+                }
+                
+                resultBox.appendChild(resultValue);
+                
+                // Add click event to edit result
+                resultBox.addEventListener('click', function() {
+                    const currentValue = i < lastResults.length ? lastResults[i] : '';
+                    const newValue = prompt(`Enter result for position ${i+1} (1-9):`, currentValue);
+                    if (newValue !== null && !isNaN(newValue) && newValue >= 1 && newValue <= 9) {
+                        // Ensure we have enough elements in the array
+                        while (lastResults.length <= i) {
+                            lastResults.push('');
+                        }
+                        lastResults[i] = parseInt(newValue);
+                        updateResultBoxes();
+                        saveToLocalStorage();
+                    }
+                });
+                
+                resultBoxesContainer.appendChild(resultBox);
+            }
         }
-    }
-
-    // Function to append text to the calculation area
-    function logCalculation(text) {
-        const area = document.getElementById('calculation-area');
-        const now = new Date().toLocaleTimeString();
-        area.innerHTML += `\n[${now}] ${text}`;
-        area.scrollTop = area.scrollHeight; // Auto-scroll to bottom
-    }
-
-</script>
+        
+        function deleteResult(index) {
+            lastResults.splice(index, 1);
+            updateResultBoxes();
+            saveToLocalStorage();
+        }
+        
+        function saveToLocalStorage() {
+            localStorage.setItem('predictionsUsed', predictionsUsed);
+            localStorage.setItem('isKeyActivated', isKeyActivated);
+            localStorage.setItem('lastResults', JSON.stringify(lastResults));
+        }
+        
+        initializePage();
+        
+        // Sound effects
+        function playClickSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.2);
+        }
+        
+        // Event Listeners
+        activationBtn.addEventListener('click', function() {
+            playClickSound();
+            activationPopup.style.display = 'none';
+            videoSection.style.display = 'block';
+            
+            // Auto-play video
+            hackVideo.play().catch(e => console.log("Video autoplay failed:", e));
+        });
+        
+        skipBtn.addEventListener('click', function() {
+            playClickSound();
+            videoSection.style.display = 'none';
+            telegramPopup.style.display = 'flex';
+        });
+        
+        muteBtn.addEventListener('click', function() {
+            if (hackVideo.muted) {
+                hackVideo.muted = false;
+                muteBtn.innerHTML = '<i class="fas fa-volume-up"></i> Unmute';
+            } else {
+                hackVideo.muted = true;
+                muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i> Mute';
+            }
+        });
+        
+        // Video ended event
+        hackVideo.addEventListener('ended', function() {
+            videoSection.style.display = 'none';
+            telegramPopup.style.display = 'flex';
+        });
+        
+        joinTelegramBtn.addEventListener('click', function() {
+            playClickSound();
+            window.open('https://t.me/+hzN8Ci0F7aYzMmY9', '_blank');
+            telegramPopup.style.display = 'none';
+            mainPage.style.display = 'block';
+        });
+        
+        generateBtn.addEventListener('click', function() {
+            playClickSound();
+            
+            if (predictionsUsed >= 10 && !isKeyActivated) {
+                alert('You have used all free predictions. Please enter a key to continue.');
+                return;
+            }
+            
+            if (lastResults.length < 5) {
+                alert('Please enter at least 5 results to generate prediction.');
+                return;
+            }
+            
+            const periodNumber = periodNumberInput.value || '278724843';
+            const prediction = generatePrediction();
+            
+            // Update prediction result
+            document.querySelector('.prediction-result .prediction-text').textContent = prediction.prediction;
+            document.querySelector('.prediction-result .prediction-details').textContent = prediction.details;
+            document.querySelector('.prediction-result .prediction-period').textContent = `Period: ${periodNumber}`;
+            
+            // Update analysis
+            analysisContent.innerHTML = prediction.analysis;
+            
+            // Show prediction popup
+            const predictionType = prediction.prediction.includes('Big') ? 'BIG' : 'SMALL';
+            const predictionNumbers = prediction.prediction.split('/')[1].trim();
+            
+            popupType.textContent = predictionType;
+            popupPrediction.textContent = predictionNumbers;
+            popupNumbers.textContent = `Numbers: ${predictionNumbers}`;
+            popupPeriod.textContent = `Period: ${periodNumber}`;
+            predictionPopup.style.display = 'flex';
+            
+            // Auto-hide popup after 3 seconds
+            setTimeout(() => {
+                predictionPopup.style.display = 'none';
+            }, 3000);
+            
+            // Update prediction count
+            if (!isKeyActivated) {
+                predictionsUsed++;
+                predictionCount.textContent = 10 - predictionsUsed;
+                saveToLocalStorage();
+            }
+        });
+        
+        clearAllBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear all results?')) {
+                lastResults = [];
+                updateResultBoxes();
+                saveToLocalStorage();
+            }
+        });
+        
+        addRandomBtn.addEventListener('click', function() {
+            if (lastResults.length < 10) {
+                const randomValue = Math.floor(Math.random() * 9) + 1;
+                lastResults.push(randomValue);
+                updateResultBoxes();
+                saveToLocalStorage();
+            } else {
+                alert('Maximum 10 results allowed.');
+            }
+        });
+        
+        closePopupBtn.addEventListener('click', function() {
+            playClickSound();
+            predictionPopup.style.display = 'none';
+        });
+        
+        joinTelegramPopupBtn.addEventListener('click', function() {
+            playClickSound();
+            window.open('https://t.me/+hzN8Ci0F7aYzMmY9', '_blank');
+        });
+        
+        winBtn.addEventListener('click', function() {
+            playClickSound();
+            updateHumanPsychology('win');
+            alert('Feedback recorded: WIN - AI psychology updated');
+        });
+        
+        lossBtn.addEventListener('click', function() {
+            playClickSound();
+            updateHumanPsychology('loss');
+            alert('Feedback recorded: LOSS - AI psychology updated');
+        });
+        
+        buyKeyBtn.addEventListener('click', function() {
+            playClickSound();
+            window.open('https://t.me/Predict456', '_blank');
+        });
+        
+        // Key validation
+        keyInput.addEventListener('input', function() {
+            if (keyInput.value === 'madara456') {
+                isKeyActivated = true;
+                predictionCount.textContent = 'Unlimited';
+                keyInput.type = 'password';
+                keyInput.value = '********';
+                alert('Key activated! Unlimited predictions unlocked.');
+                saveToLocalStorage();
+            }
+        });
+        
+        // Update last results when actual result is entered
+        actualResultInput.addEventListener('change', function() {
+            if (actualResultInput.value) {
+                const value = parseInt(actualResultInput.value);
+                if (!isNaN(value) && value >= 1 && value <= 9) {
+                    lastResults.push(value);
+                    if (lastResults.length > 10) {
+                        lastResults.shift();
+                    }
+                    updateResultBoxes();
+                    actualResultInput.value = '';
+                    saveToLocalStorage();
+                } else {
+                    alert('Please enter a valid number between 1 and 9');
+                }
+            }
+        });
+        
+        // Generate prediction based on 100 AI human psychology
+        function generatePrediction() {
+            // Simulate 100 AI human psychology analysis
+            const patterns = analyzePatterns(lastResults);
+            const trend = analyzeTrend(lastResults);
+            const confidence = calculateConfidence(patterns, trend);
+            
+            // Generate prediction (opposite of what 100 humans would predict)
+            const humanPrediction = generateHumanPrediction(patterns, trend);
+            const finalPrediction = getOppositePrediction(humanPrediction);
+            
+            // Generate analysis text
+            const analysis = generateAnalysis(patterns, trend, confidence, humanPrediction);
+            
+            return {
+                prediction: finalPrediction.prediction,
+                details: finalPrediction.details,
+                analysis: analysis
+            };
+        }
+        
+        function analyzePatterns(results) {
+            if (results.length < 5) return "Insufficient data";
+            
+            let patterns = [];
+            
+            // Check for alternating pattern
+            let isAlternating = true;
+            for (let i = 1; i < results.length; i++) {
+                if (results[i] === results[i-1]) {
+                    isAlternating = false;
+                    break;
+                }
+            }
+            if (isAlternating) patterns.push("Alternating pattern detected");
+            
+            // Check for repeating pattern
+            if (results.length >= 3) {
+                const lastThree = results.slice(-3);
+                if (lastThree[0] === lastThree[2]) {
+                    patterns.push("Repeating pattern detected");
+                }
+            }
+            
+            // Check for trend (increasing/decreasing)
+            let increasing = 0, decreasing = 0;
+            for (let i = 1; i < results.length; i++) {
+                if (results[i] > results[i-1]) increasing++;
+                else if (results[i] < results[i-1]) decreasing++;
+            }
+            
+            if (increasing > decreasing * 1.5) patterns.push("Upward trend");
+            else if (decreasing > increasing * 1.5) patterns.push("Downward trend");
+            
+            return patterns.length > 0 ? patterns.join(", ") : "No clear patterns";
+        }
+        
+        function analyzeTrend(results) {
+            if (results.length < 3) return "Neutral";
+            
+            const lastFive = results.slice(-5);
+            let sum = 0;
+            for (let i = 1; i < lastFive.length; i++) {
+                sum += lastFive[i] - lastFive[i-1];
+            }
+            
+            if (sum > 2) return "Strong Upward";
+            if (sum > 0) return "Upward";
+            if (sum < -2) return "Strong Downward";
+            if (sum < 0) return "Downward";
+            return "Neutral";
+        }
+        
+        function calculateConfidence(patterns, trend) {
+            let confidence = 50; // Base confidence
+            
+            if (patterns.includes("Alternating pattern detected")) confidence += 20;
+            if (patterns.includes("Repeating pattern detected")) confidence += 15;
+            if (trend.includes("Strong")) confidence += 10;
+            
+            return Math.min(confidence, 95);
+        }
+        
+        function generateHumanPrediction(patterns, trend) {
+            // Simulate what 100 humans would predict based on psychology
+            const lastResult = lastResults[lastResults.length - 1];
+            
+            // Humans tend to see patterns even when they don't exist
+            if (patterns.includes("Alternating pattern detected")) {
+                return {
+                    prediction: `Small / ${lastResult === 5 ? '8,9' : '5,6'}`,
+                    details: "Based on alternating pattern analysis"
+                };
+            }
+            
+            if (patterns.includes("Repeating pattern detected")) {
+                return {
+                    prediction: `Big / ${lastResult}, ${lastResult + 1 > 9 ? lastResult - 1 : lastResult + 1}`,
+                    details: "Based on repeating pattern analysis"
+                };
+            }
+            
+            if (trend.includes("Upward")) {
+                return {
+                    prediction: `Big / 7,8,9`,
+                    details: "Based on upward trend analysis"
+                };
+            }
+            
+            if (trend.includes("Downward")) {
+                return {
+                    prediction: `Small / 1,2,3`,
+                    details: "Based on downward trend analysis"
+                };
+            }
+            
+            // Default prediction based on recent results
+            const bigCount = lastResults.filter(r => r > 5).length;
+            const smallCount = lastResults.filter(r => r <= 5).length;
+            
+            if (bigCount > smallCount) {
+                return {
+                    prediction: "Small / 3,4,5",
+                    details: "Based on probability reversal"
+                };
+            } else {
+                return {
+                    prediction: "Big / 6,7,8",
+                    details: "Based on probability reversal"
+                };
+            }
+        }
+        
+        function getOppositePrediction(humanPrediction) {
+            // Return the opposite of what humans would predict
+            if (humanPrediction.prediction.includes("Big")) {
+                return {
+                    prediction: "Small / 2,3,4",
+                    details: "AI Psychology: Opposite of human pattern recognition"
+                };
+            } else {
+                return {
+                    prediction: "Big / 6,7,8",
+                    details: "AI Psychology: Opposite of human pattern recognition"
+                };
+            }
+        }
+        
+        function generateAnalysis(patterns, trend, confidence, humanPrediction) {
+            return `
+                <span style="color: #00ff00;">Last Result Analysis:</span> ${patterns}<br>
+                <span style="color: #00ff00;">Trend Analysis:</span> ${trend}<br>
+                <span style="color: #00ff00;">Human Psychology Prediction:</span> ${humanPrediction.prediction}<br>
+                <span style="color: #00ff00;">Confidence Level:</span> ${confidence}%<br>
+                <span style="color: #00ff00;">AI Decision:</span> Opposite of human prediction applied<br>
+                <span style="color: #00ff00;">Pattern Recognition:</span> 100 AI minds analyzed data<br>
+                <span style="color: #00ff00;">Risk Assessment:</span> Low risk strategy activated
+            `;
+        }
+        
+        function updateHumanPsychology(outcome) {
+            // Simulate updating the 100 AI human psychology based on outcome
+            // In a real system, this would adjust the prediction algorithm
+            console.log(`Updating AI psychology based on ${outcome} outcome`);
+        }
+    </script>
 </body>
 </html>
