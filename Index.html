@@ -1188,14 +1188,14 @@
             
             if (trend.includes("Upward")) {
                 return {
-                    prediction: `Big / 7,8,9`,
+                    prediction: `Big / `,
                     details: "Based on upward trend analysis"
                 };
             }
             
             if (trend.includes("Downward")) {
                 return {
-                    prediction: `Small / 1,2,3`,
+                    prediction: `Small /`,
                     details: "Based on downward trend analysis"
                 };
             }
@@ -1206,12 +1206,12 @@
             
             if (bigCount > smallCount) {
                 return {
-                    prediction: "Small / 3,4,5",
+                    prediction: "Small /",
                     details: "Based on probability reversal"
                 };
             } else {
                 return {
-                    prediction: "Big / 6,7,8",
+                    prediction: "Big /",
                     details: "Based on probability reversal"
                 };
             }
@@ -1221,12 +1221,12 @@
             // Return the opposite of what humans would predict
             if (humanPrediction.prediction.includes("Big")) {
                 return {
-                    prediction: "Small / 2,3,4",
+                    prediction: "Small /",
                     details: "AI Psychology: Opposite of human pattern recognition"
                 };
             } else {
                 return {
-                    prediction: "Big / 6,7,8",
+                    prediction: "Big /",
                     details: "AI Psychology: Opposite of human pattern recognition"
                 };
             }
