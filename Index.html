@@ -3,95 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Pattern Predictor</title>
-    <link rel="stylesheet" href="style.css">
+    <title>AI Prediction Simulator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div id="welcome-overlay" class="overlay">
-        <div class="popup red-glow">
-            <h2>⚠️ ACTIVATE HACK ⚠️</h2>
-            <p>Analysis Engine loading...</p>
-            <button onclick="activateSystem()">START ANALYSIS</button>
+    <div id="popup-hack" class="popup-overlay active">
+        <div class="popup-content red-highlight">
+            <h2>🚨 ACTIVATION REQUIRED 🚨</h2>
+            <p>Simulating 100 AI Minds...</p>
+            <button onclick="activateSimulator()">ACTIVATE SIMULATOR</button>
         </div>
     </div>
 
-    <div id="telegram-overlay" class="overlay hidden">
-        <div class="popup light-glow">
-            <img src="logo.png" alt="Channel Logo" class="telegram-logo">
-            <h3>Join Our Exclusive Community</h3>
-            <p>Get real-time updates and support.</p>
-            <a href="https://t.me/Predict456" target="_blank" class="join-button">JOIN TELEGRAM</a>
-            <button class="close-popup" onclick="closeTelegramPopup()">Continue to Dashboard</button>
-        </div>
-    </div>
-
-    <div id="main-dashboard" class="dashboard hidden">
+    <div id="main-simulator" class="hidden">
         <header>
-            <h1>DATA TREND ANALYZER <span class="blinking-cursor">_</span></h1>
+            <h1>AI Trend Analysis System</h1>
+            <div class="user-status">
+                <span id="free-predictions-left">Free Predictions Left: 10</span>
+                <span id="prediction-status">Status: Free Trial</span>
+            </div>
         </header>
 
-        <main>
-            <section class="input-section">
-                <h2>Enter Historical Data</h2>
+        <div class="content-container">
+            <div class="input-panel">
+                <h2>📈 Enter Last 10 Results</h2>
                 
-                <div class="input-form">
-                    <label for="period-number">Current Period:</label>
-                    <input type="number" id="period-number" placeholder="e.g., 20251101">
+                <label for="period-number">Period Number:</label>
+                <input type="text" id="period-number" placeholder="e.g., 20251111155">
 
-                    <div class="last-results-container" id="last-results-container">
-                        <label>Last 10 Results (Small Boxes):</label>
-                        <div class="result-boxes" id="result-boxes">
-                            </div>
+                <div class="result-inputs">
+                    <input type="text" class="result-box" maxlength="1" placeholder="R1">
+                    <input type="text" class="result-box" maxlength="1" placeholder="R10">
+                </div>
+
+                <div class="actual-result-update">
+                    <label for="actual-result">Actual Result (0/1):</label>
+                    <input type="text" id="actual-result" maxlength="1" placeholder="Latest Result">
+                    <button onclick="updateResults()">Update Results</button>
+                </div>
+
+                <button id="generate-btn" onclick="generatePrediction()">GENERATE PREDICTION</button>
+
+                <div class="key-section">
+                    <input type="text" id="prediction-key" placeholder="Enter Key: madara456">
+                    <button onclick="activateKey()">Enter Key</button>
+                    <a href="t.me/Predict456" target="_blank" class="buy-key-btn">Buy Key</a>
+                </div>
+            </div>
+
+            <div class="calculation-panel">
+                <h2>📊 Data Last Result Analysis</h2>
+                <div id="hacker-display">
+                    <p>INITIATING NEURAL NETWORK...</p>
+                    <p>PROCESSING INPUT MATRIX...</p>
+                    <p>TREND DEVIATION: 0.003%</p>
+                    <p>REROUTING PSYCHOLOGY VECTORS...</p>
                     </div>
-                    
-                    <div class="actual-result-input">
-                        <label for="actual-result">Latest Result Quick Update:</label>
-                        <input type="number" id="actual-result" placeholder="Enter single result">
-                        <button onclick="updateResults()">UPDATE</button>
-                    </div>
+            </div>
+        </div>
+        
+        <div class="feedback-section">
+            <button class="win-btn" onclick="sendFeedback('win')">WIN Feedback</button>
+            <button class="loss-btn" onclick="sendFeedback('loss')">LOSS Feedback</button>
+        </div>
+    </div>
 
-                    <button class="generate-button" onclick="generatePrediction()">GENERATE PREDICTION</button>
-                </div>
-            </section>
+    <div id="popup-prediction" class="popup-overlay">
+        <div class="popup-content prediction-result">
+            <h3 id="pred-period"></h3>
+            <h2 id="pred-big-small"></h2>
+            <h2 id="pred-number"></h2>
+            <p>Note: This prediction is for educational simulation only.</p>
+        </div>
+    </div>
 
-            <section class="prediction-section">
-                <h2>Prediction Output</h2>
-                <div id="prediction-display" class="prediction-box">
-                    <p>Enter data and click 'Generate' to see the forecast.</p>
-                </div>
+    <div id="popup-telegram" class="popup-overlay">
+        <div class="popup-content telegram-join">
+            <img src="logo.png" alt="Channel Logo" class="channel-logo">
+            <h3>Join Our Educational Community</h3>
+            <p>Get updates on our simulation project!</p>
+            <a href="t.me/Predict456" target="_blank" onclick="closeTelegramPopup()">JOIN CHANNEL</a>
+            <button onclick="closeTelegramPopup()">Continue to Simulator</button>
+        </div>
+    </div>
 
-                <div id="prediction-popup" class="overlay hidden">
-                    <div class="popup light-glow prediction-result-popup">
-                        <h3>Prediction Generated</h3>
-                        <p id="popup-period"></p>
-                        <p id="popup-prediction" class="huge-text"></p>
-                    </div>
-                </div>
-
-                <div id="key-section" class="key-input-area hidden">
-                    <h3>Prediction Limit Reached!</h3>
-                    <p>Enter Key for Unlimited Access:</p>
-                    <input type="text" id="access-key" placeholder="Enter madara456">
-                    <button onclick="unlockAccess()">ENTER KEY</button>
-                    <a href="https://t.me/Predict456" target="_blank" class="buy-key-button">BUY KEY</a>
-                </div>
-            </section>
-        </main>
-
-        <section class="calculation-section">
-            <h2><span class="text-green">></span> DATA LAST RESULT ANALYSIS</h2>
-            <pre id="analysis-output" class="console-output">
-[Loading Data Streams...]
-Analyzing 10 Historical Points...
-[Data Filter: OK]
-[Pattern Matching: Initializing 100 Simulated Logic Streams...]
-...
-            </pre>
-            <div id="human-ai-status">
-                </div>
-        </section>
-
-    </div> <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
