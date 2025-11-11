@@ -1181,7 +1181,7 @@
             
             if (patterns.includes("Repeating pattern detected")) {
                 return {
-                    prediction: `Big / ${lastResult}, ${lastResult + 1 > 9 ? lastResult - 1 : lastResult + 1}`,
+                    prediction: `Big / ${lastResult}, ${lastResult + 0 > 9 ? lastResult - 1 : lastResult + 1}`,
                     details: "Based on repeating pattern analysis"
                 };
             }
