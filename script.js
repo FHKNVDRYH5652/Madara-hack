@@ -1,214 +1,209 @@
 // --- Global Variables ---
-const totalPredictionLimit = 10;
-let predictionsUsed = 0;
-let isAccessUnlocked = false;
+const KEY = 'madara456';
+let freePredictions = 10;
+let keyActive = false;
+let results = ['5', '8', '5', '8', '5', '3', '7', '1', '9', '2']; // Initial 10 results (for simulation)
 
-// Array to hold the last 10 results, initialized with placeholder values
-let last10Results = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+// --- Sound Effects Setup ---
+// Replace 'path/to/...' with your actual sound file paths
+const clickSound = new Audio('click.mp3'); 
+const winSound = new Audio('win.mp3'); 
+const errorSound = new Audio('error.mp3'); 
 
-// --- Startup Functions ---
-
-document.addEventListener('DOMContentLoaded', () => {
-    createResultInputBoxes();
-    // Initially only the welcome overlay is visible
-});
-
-// Function to generate the 10 small input boxes
-function createResultInputBoxes() {
-    const container = document.getElementById('result-boxes');
-    for (let i = 0; i < 10; i++) {
-        const input = document.createElement('input');
-        input.type = 'number';
-        input.classList.add('result-box-input');
-        input.placeholder = `R${10 - i}`;
-        input.id = `result-box-${i}`;
-        input.value = last10Results[i];
-        input.maxLength = 1;
-        input.addEventListener('input', (e) => {
-            // Update the global array when a box is manually changed
-            last10Results[i] = parseInt(e.target.value) || 0;
-        });
-        container.appendChild(input);
-    }
+function playSound(audio) {
+    audio.currentTime = 0; // Reset sound to play multiple times
+    audio.play();
 }
 
-// --- Pop-up & Access Control Functions ---
+// --- Initial Setup and Activation Logic ---
 
-function activateSystem() {
-    // 1. Simulate Video playback (simply hide the pop-up)
-    document.getElementById('welcome-overlay').classList.add('hidden');
+// Function to handle the first 'Activate Simulator' button click
+function activateSimulator() {
+    playSound(clickSound);
     
-    // In a real scenario, here you would play video.mp4
+    // 1. Show the video popup (We simulate the video playing, as a real video player is complex)
+    const hackPopup = document.getElementById('popup-hack');
+    hackPopup.style.display = 'none'; // Hide the hack popup
+    
+    // 2. Simulate video playing, then show Telegram popup
+    // In a real scenario, you'd use <video> element's 'onended' event.
+    // Here, we simulate a 3-second video delay.
+    alert("Video.mp4 is simulating... (In a real website, the video would play here.)"); 
 
-    // 2. Show Telegram Pop-up after a short delay (simulating video end)
     setTimeout(() => {
-        document.getElementById('telegram-overlay').classList.remove('hidden');
-    }, 100); 
-}
-
-function closeTelegramPopup() {
-    document.getElementById('telegram-overlay').classList.add('hidden');
-    document.getElementById('main-dashboard').classList.remove('hidden');
-}
-
-function unlockAccess() {
-    const keyInput = document.getElementById('access-key').value;
-    const requiredKey = 'madara456';
-    
-    if (keyInput === requiredKey) {
-        isAccessUnlocked = true;
-        document.getElementById('key-section').classList.add('hidden');
-        document.getElementById('prediction-display').innerHTML = '<p>Access Granted: Unlimited Predictions!</p>';
-    } else {
-        alert('ACCESS DENIED: Incorrect Key.');
-    }
-}
-
-function showPredictionPopup(period, prediction) {
-    document.getElementById('popup-period').textContent = `Period: ${period}`;
-    document.getElementById('popup-prediction').textContent = prediction;
-    const popup = document.getElementById('prediction-popup');
-    popup.classList.remove('hidden');
-
-    // Hide pop-up after 5 seconds
-    setTimeout(() => {
-        popup.classList.add('hidden');
-    }, 5000); 
-}
-
-// --- Data Management Functions ---
-
-function updateResults() {
-    const newResultInput = document.getElementById('actual-result');
-    const newResult = parseInt(newResultInput.value);
-
-    if (isNaN(newResult) || newResult < 0 || newResult > 9) {
-        alert("Please enter a valid single digit result (0-9).");
-        return;
-    }
-
-    // Shift all results: Last one is removed, new one is added to the front
-    last10Results.pop(); // Remove the oldest result
-    last10Results.unshift(newResult); // Add the newest result to the start
-
-    // Update the input boxes on the screen
-    for (let i = 0; i < 10; i++) {
-        document.getElementById(`result-box-${i}`).value = last10Results[i];
-    }
-    
-    // Clear the quick update box
-    newResultInput.value = '';
-    
-    // Update the console display
-    updateConsoleAnalysis('Latest Result added. Data stream updated.');
-}
-
-
-// --- Prediction Simulation Function ---
-
-function generatePrediction() {
-    if (!isAccessUnlocked && predictionsUsed >= totalPredictionLimit) {
-        document.getElementById('key-section').classList.remove('hidden');
-        document.getElementById('prediction-display').innerHTML = '<p>Prediction Limit Reached. Please enter Key.</p>';
-        return;
-    }
-
-    const period = document.getElementById('period-number').value;
-
-    if (!period || last10Results.some(r => r === 0)) {
-        alert("Please enter a Period Number and ensure all 10 results are filled.");
-        return;
-    }
-
-    predictionsUsed++;
-
-    // --- Core 100 AI Logic Simulation ---
-    // This is a SIMULATION of complex analysis, not a real AI.
-
-    let totalScore = 0;
-    
-    // 1. Trend Analysis (Simple Pattern)
-    const lastThree = last10Results.slice(0, 3);
-    const sumLastThree = lastThree.reduce((a, b) => a + b, 0);
-    
-    // 2. Odd/Even Bias
-    const oddCount = last10Results.filter(n => n % 2 !== 0).length;
-    const evenCount = 10 - oddCount;
-
-    // 3. 100 Simulated Human/AI Minds
-    let humanWins = 0;
-    const humanAiStatusDiv = document.getElementById('human-ai-status');
-    humanAiStatusDiv.innerHTML = '';
-
-    for (let i = 1; i <= 100; i++) {
-        // Simple "Psychology" Logic: Each AI has a slightly different weighting
-        const weight = (i % 10) * 0.1; // Weight from 0.1 to 0.9
-
-        // Logic 1: Does the number appear in the last 3 results?
-        let predictionBase = (lastThree.includes(i % 10)) ? 1 : 0;
-
-        // Logic 2: Is the sum of last 3 high or low?
-        predictionBase += (sumLastThree > 15 && (i % 10) > 5) ? 1 : 0;
+        // 3. Show Telegram Popup
+        document.getElementById('popup-telegram').classList.add('active');
         
-        // Logic 3: Random factor to simulate human variability
-        predictionBase += Math.random() < 0.5 ? -1 : 1; 
+    }, 3000); // 3-second simulation delay
+}
 
-        // Final score for this "human"
-        const finalScore = Math.floor((predictionBase * weight) + (Math.random() * 5)); 
-        totalScore += finalScore;
-
-        // Simulate Win/Loss Action (Action is based on a random threshold)
-        const action = finalScore > 3 ? 'UP Action (Win)' : 'DOWN Action (Loss)';
-        const statusClass = finalScore > 3 ? 'status-win' : 'status-loss';
-        if (finalScore > 3) humanWins++;
-
-        const statusElement = document.createElement('div');
-        statusElement.classList.add('status-item', statusClass);
-        statusElement.textContent = `[H-${i}] Log: ${finalScore.toFixed(2)} | Action: ${action}`;
-        humanAiStatusDiv.appendChild(statusElement);
-    }
+// Function to close the Telegram popup and show the main simulator
+function closeTelegramPopup() {
+    playSound(clickSound);
+    document.getElementById('popup-telegram').classList.remove('active');
+    document.getElementById('main-simulator').classList.remove('hidden');
     
-    // --- Final Prediction Generation ---
-    // A simplified way to derive a prediction from the total score
-    const avgScore = totalScore / 100;
+    // Update the result boxes on load
+    updateResultBoxesDisplay();
+}
 
-    // The core prediction is derived from the average score (e.g., if avgScore is high, predict a high number)
-    // We'll map the score to a 0-9 number.
-    let corePrediction = Math.floor((avgScore % 10)); 
-    if (corePrediction < 0) corePrediction = 0;
-    
-    // Opposite Prediction (as requested)
-    // Simply use the complementary number (9 - prediction)
-    let oppositePrediction = 9 - corePrediction;
+// --- Main Simulator Functions ---
 
+// Function to update the 10 small input boxes based on the 'results' array
+function updateResultBoxesDisplay() {
+    const resultBoxes = document.querySelectorAll('.result-box');
+    resultBoxes.forEach((box, index) => {
+        box.value = results[index] || ''; // Display the current result array
+    });
+}
 
-    // --- Display Results ---
-    const predictionText = `CORE: ${corePrediction} | OPPOSITE: ${oppositePrediction}`;
+// Function to update the results with the latest one
+function updateResults() {
+    playSound(clickSound);
+    const latestResult = document.getElementById('actual-result').value.trim();
 
-    document.getElementById('prediction-display').innerHTML = `
-        <p>Predicted by 100 Simulated Minds:</p>
-        <p class="huge-text">${corePrediction}</p>
-        <p>Opposite Recommendation: ${oppositePrediction}</p>
-        <p>Minds in Consensus: ${humanWins}%</p>
-    `;
+    if (latestResult.length === 1 && !isNaN(parseInt(latestResult))) {
+        // Shift array: remove the oldest (first) and add the newest (last)
+        results.shift(); 
+        results.push(latestResult);
 
-    showPredictionPopup(period, corePrediction);
-    updateConsoleAnalysis(`--- PREDICTION GENERATED ---
-> PERIOD: ${period}
-> CORE ANALYSIS RESULT: ${corePrediction}
-> OPPOSITE RESULT: ${oppositePrediction}
-> Consensus Score: ${avgScore.toFixed(2)} | Win Minds: ${humanWins}/100`);
-
-    // Show key section if limit is reached after this prediction
-    if (predictionsUsed >= totalPredictionLimit && !isAccessUnlocked) {
-        document.getElementById('key-section').classList.remove('hidden');
+        // Clear the input box and update display
+        document.getElementById('actual-result').value = '';
+        updateResultBoxesDisplay();
+        alert(`Result ${latestResult} added. Oldest result removed.`);
+        
+    } else {
+        alert('Please enter a single number for the Actual Result.');
+        playSound(errorSound);
     }
 }
 
-function updateConsoleAnalysis(message) {
-    const consoleOutput = document.getElementById('analysis-output');
-    const now = new Date().toLocaleTimeString();
-    consoleOutput.textContent += `\n[${now}] ${message}`;
-    // Scroll to the bottom
-    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+// Function to simulate the 100 AI Psychology Prediction
+function generatePrediction() {
+    playSound(clickSound);
+    
+    if (!keyActive && freePredictions <= 0) {
+        alert('Free predictions limit reached. Please enter the Key to continue.');
+        playSound(errorSound);
+        return;
+    }
+
+    const periodNumber = document.getElementById('period-number').value.trim();
+
+    if (periodNumber === "") {
+        alert('Please enter the Period Number.');
+        playSound(errorSound);
+        return;
+    }
+
+    // --- AI Prediction Logic Simulation ---
+    // In a real educational project, this would be a complex math function.
+    // Here, we use a simple simulation based on the last result for demonstration.
+    
+    const lastResult = parseInt(results[results.length - 1]);
+    
+    // Simple logic: If last result is even, predict odd number and 'Big'.
+    let predictedNumber;
+    let predictedBigSmall;
+    
+    if (lastResult % 2 === 0) {
+        predictedNumber = Math.floor(Math.random() * 5) * 2 + 1; // Random odd number (1, 3, 5, 7, 9)
+        predictedBigSmall = "BIG";
+    } else {
+        predictedNumber = Math.floor(Math.random() * 5) * 2; // Random even number (0, 2, 4, 6, 8)
+        predictedBigSmall = "SMALL";
+    }
+
+    // You also requested the *opposite* prediction from the 100 human psychology.
+    const oppositeNumber = (predictedNumber + 5) % 10;
+    const oppositeBigSmall = (predictedBigSmall === "BIG") ? "SMALL" : "BIG";
+
+    // We will show the original AI prediction for simplicity
+    
+    // 1. Show Hacker Calculation Display
+    updateHackerDisplay();
+
+    // 2. Show Prediction Popup
+    const predPopup = document.getElementById('popup-prediction');
+    document.getElementById('pred-period').textContent = `Period: ${periodNumber}`;
+    document.getElementById('pred-big-small').textContent = `PREDICT: ${predictedBigSmall}`;
+    document.getElementById('pred-number').textContent = `Number: ${predictedNumber}`;
+    predPopup.classList.add('active');
+
+    // Hide the popup after 5 seconds
+    setTimeout(() => {
+        predPopup.classList.remove('active');
+    }, 5000);
+
+    // 3. Update Free Predictions
+    if (!keyActive) {
+        freePredictions--;
+        document.getElementById('free-predictions-left').textContent = `Free Predictions Left: ${freePredictions}`;
+    }
 }
+
+// Function to simulate the "hacker" calculation display
+function updateHackerDisplay() {
+    const display = document.getElementById('hacker-display');
+    const logs = [
+        `[INFO] Analyzing Period ${document.getElementById('period-number').value}...`,
+        `[CALC] Trend Pattern ${results.join('-')} Match Rate: 87.2%`,
+        `[NETWORK] AI Unit 37: Action WIN. AI Unit 58: Action LOSS.`,
+        `[RESULT] Optimal Vector (Big/Small): Calculated.`,
+        `[MATRIX] Rerouting Human Psychology Variables...`,
+        `[FINAL] Prediction Generated. Code 45xT-291Z.`,
+        `----------------------------------------`
+    ];
+    
+    // Clear and add new log lines one by one for an effect
+    display.innerHTML = '';
+    logs.forEach((log, index) => {
+        setTimeout(() => {
+            display.innerHTML += `<p>${log}</p>`;
+            display.scrollTop = display.scrollHeight; // Scroll to bottom
+        }, 100 * index);
+    });
+}
+
+// Function to handle Win/Loss feedback (100 AI action simulation)
+function sendFeedback(type) {
+    playSound(clickSound);
+    
+    // This is where you would program the 100 AI/Human's action simulation
+    // E.g., If 'Win', 100 AI minds update their confidence score. If 'Loss', they change their next strategy.
+    
+    if (type === 'win') {
+        alert("Feedback: WIN sent! 100 AI minds are updating their positive trend data and increasing next prediction's stake (Simulated).");
+        playSound(winSound);
+    } else {
+        alert("Feedback: LOSS sent! 100 AI minds are adjusting their pattern recognition algorithm and lowering next prediction's stake (Simulated).");
+        playSound(errorSound); // Using error sound for Loss feedback
+    }
+}
+
+// Function to activate the key
+function activateKey() {
+    playSound(clickSound);
+    const enteredKey = document.getElementById('prediction-key').value.trim();
+
+    if (enteredKey === KEY) {
+        keyActive = true;
+        document.getElementById('prediction-status').textContent = 'Status: Activated (Unlimited)';
+        document.getElementById('free-predictions-left').textContent = 'Unlimited';
+        alert('Key Activated! You now have unlimited predictions.');
+        document.getElementById('prediction-key').style.borderColor = '#00ff00';
+    } else {
+        alert('Invalid Key. Please try again or Buy Key.');
+        playSound(errorSound);
+        document.getElementById('prediction-key').style.borderColor = '#ff0000';
+    }
+}
+
+// Initialize the display on page load
+document.addEventListener('DOMContentLoaded', () => {
+    // We only show the hack popup initially, the rest are hidden by CSS/JS
+    document.getElementById('popup-hack').classList.add('active'); 
+    
+    // Set initial status text
+    document.getElementById('free-predictions-left').textContent = `Free Predictions Left: ${freePredictions}`;
+});
