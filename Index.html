@@ -1018,7 +1018,7 @@
         
         addRandomBtn.addEventListener('click', function() {
             if (lastResults.length < 10) {
-                const randomValue = Math.floor(Math.random() * 9) + 1;
+                const randomValue = Math.floor(Math.random() * 9) + 0;
                 lastResults.push(randomValue);
                 updateResultBoxes();
                 saveToLocalStorage();
@@ -1070,7 +1070,7 @@
         actualResultInput.addEventListener('change', function() {
             if (actualResultInput.value) {
                 const value = parseInt(actualResultInput.value);
-                if (!isNaN(value) && value >= 1 && value <= 9) {
+                if (!isNaN(value) && value >= 0 && value <= 9) {
                     lastResults.push(value);
                     if (lastResults.length > 10) {
                         lastResults.shift();
@@ -1079,7 +1079,7 @@
                     actualResultInput.value = '';
                     saveToLocalStorage();
                 } else {
-                    alert('Please enter a valid number between 1 and 9');
+                    alert('Please enter a valid number between 0 and 9');
                 }
             }
         });
