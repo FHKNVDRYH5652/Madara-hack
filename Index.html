@@ -873,8 +873,8 @@
                 // Add click event to edit result
                 resultBox.addEventListener('click', function() {
                     const currentValue = i < lastResults.length ? lastResults[i] : '';
-                    const newValue = prompt(`Enter result for position ${i+1} (1-9):`, currentValue);
-                    if (newValue !== null && !isNaN(newValue) && newValue >= 1 && newValue <= 9) {
+                    const newValue = prompt(`Enter result for position ${i+1} (0-9):`, currentValue);
+                    if (newValue !== null && !isNaN(newValue) && newValue >= 0 && newValue <= 9) {
                         // Ensure we have enough elements in the array
                         while (lastResults.length <= i) {
                             lastResults.push('');
